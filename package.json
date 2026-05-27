@@ -1,6 +1,6 @@
 {
   "name": "opencode-codemapper",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "OpenCode plugin exposing CodeMapper as small agent-facing code exploration tools.",
   "type": "module",
   "main": "./src/index.ts",
