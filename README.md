@@ -82,8 +82,8 @@ After installing, the five tools become available to the AI agent alongside buil
 1. Explore:  map({ path: "." })
 2. Search:   search({ query: "auth|login|session" })
 3. Outline:  outline({ file: "src/auth.ts" })
-4. Expand:   expand({ symbol: "authenticateUser" })
-5. Trace:    path({ from: "loginHandler", to: "verifyPassword" })
+4. Expand:   expand({ symbol: "authenticateUser", path: "src", fuzzy: true })
+5. Trace:    path({ from: "loginHandler", to: "verifyPassword", path: "src" })
 ```
 
 ## Tool reference
@@ -115,19 +115,23 @@ Returns a JSON array with one `stats` item plus `file` items. Falls back to `dir
 For code files, returns a JSON array with file metadata and symbol items.
 For Markdown files, returns h1-h3 section headings with line counts.
 
-### `expand({ symbol })`
+### `expand({ symbol, path?, fuzzy? })`
 
 ```
-- symbol: string — exact symbol name from CodeMapper index
+- symbol: string — exact indexed symbol name to analyze (use fuzzy=true for partial matching)
+- path:   string (optional) — directory scope, defaults to "."
+- fuzzy:  boolean (optional) — enable fuzzy matching, defaults to false
 ```
 
 Returns a JSON array combining `definition`, `caller`, `callee`, and `test` items.
 
-### `path({ from, to })`
+### `path({ from, to, path?, fuzzy? })`
 
 ```
-- from: string — exact source symbol name
-- to: string — exact target symbol name
+- from:  string — exact source/start symbol name (use fuzzy=true for partial matching)
+- to:    string — exact target/end symbol name
+- path:  string (optional) — directory scope, defaults to "."
+- fuzzy: boolean (optional) — enable fuzzy matching, defaults to false
 ```
 
 Returns a JSON array with one `call_path` item, or `[]` if no static path is detected.
